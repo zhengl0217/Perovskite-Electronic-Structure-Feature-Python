@@ -1,6 +1,6 @@
-# Literature_Website_Scraper
+# Feature Engineering for Perovskite's Electronic Structure Properties 
 
-Foobar is a Python library for dealing with word pluralization.
+This repository contains python code and raw data to reproduce the results in the paper "An Adaptive Machine Learning Strategy for Accelerating Discovery of Perovskite Electrocatalysts", by Zheng Li, Luke E. Achenie, and Hongliang Xin.
 
 ## Installation
 
