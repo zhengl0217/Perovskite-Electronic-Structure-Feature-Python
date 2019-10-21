@@ -4,9 +4,9 @@ import pymatgen as mg
 def elemental_descriptor(A1_ion, A2_ion, B_ion):
     """Extract elemental descriptors according to the atomic properties of A1_ion, A2_ion and B_ion in the perovskite structure.
     Args:
-       A1_ion (string): element at A1_ion site, e.g., "La"
-       A2_ion (string): element at A2_ion site, e.g., "Ba" 
-       B_ion (string): element at B_ion site, e.g., "Co" 
+       A1_ion (str): element at A1_ion site, e.g., "La"
+       A2_ion (str): element at A2_ion site, e.g., "Ba" 
+       B_ion (str): element at B_ion site, e.g., "Co" 
     Returns:
        array: compositional descriptors, including common oxidation state of A, common oxidation state of B, Pauling electronegativity of A, Pauling electronegativity B, Tolerance factor, Octahedral factor, ionic ration of A/O, ionic ration of B/O, electronegativity difference of A/O, electronegativity difference of B/O.
     """
