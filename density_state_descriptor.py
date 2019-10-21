@@ -1,4 +1,3 @@
-#!/usr/bin/env python 
 import numpy as np
 
 def smooth(y, box_pts):
