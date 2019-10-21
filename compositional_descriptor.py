@@ -10,7 +10,6 @@ def elemental_descriptor(A1_ion, A2_ion, B_ion):
     Returns:
        array: compositional descriptors, including common oxidation state of A, common oxidation state of B, Pauling electronegativity of A, Pauling electronegativity B, Tolerance factor, Octahedral factor, ionic ration of A/O, ionic ration of B/O, electronegativity difference of A/O, electronegativity difference of B/O.
     """
-
     ele_A1 = mg.Element(A1_ion)
     ele_A2 = mg.Element(A2_ion)
     ele_B = mg.Element(B_ion)
