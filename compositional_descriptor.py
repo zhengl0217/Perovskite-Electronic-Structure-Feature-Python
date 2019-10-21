@@ -13,38 +13,32 @@ def elemental_descriptor(A1_ion, A2_ion, B_ion):
     ele_A1 = mg.Element(A1_ion)
     ele_A2 = mg.Element(A2_ion)
     ele_B = mg.Element(B_ion)
-    ele_O = mg.Element('O')
-    
+    ele_O = mg.Element('O')   
     # A/B ion oxidation state 
     common_oxidation_states_A1 = ele_A1.common_oxidation_states[0]
     common_oxidation_states_A2 = ele_A2.common_oxidation_states[0]
     common_oxidation_states_A = np.mean(common_oxidation_states_A1 + common_oxidation_states_A2)
     common_oxidation_states_B = ele_B.common_oxidation_states[0]
-
     # ionic radius property
     ionic_radius_A1 = float(str(ele_A1.average_ionic_radius)[:-4])
     ionic_radius_A2 = float(str(ele_A2.average_ionic_radius)[:-4])
     ionic_radius_A = (ionic_radius_A1+ ionic_radius_A2)/2
     ionic_radius_B = float(str(ele_B.average_ionic_radius)[:-4])
     ionic_radius_O = float(str(ele_O.average_ionic_radius)[:-4])
-    
     # Tolerance factor 
     TF = (ionic_radius_A + ionic_radius_O)/(np.sqrt(2)*(ionic_radius_B + ionic_radius_O))
-    
     # Octahedral factor
-    OF = ionic_radius_B/ionic_radius_O
-    
+    OF = ionic_radius_B/ionic_radius_O  
     # ionic_radius ratios
     ionic_ration_AO = ionic_radius_A / ionic_radius_O
     ionic_ration_BO = ionic_radius_B / ionic_radius_O
-
-    # Difference in the electronegativity for A-O and B-O
+    # averaged electronegativity for A and B atoms
     Pauling_electronegativity_A1 = ele_A1.X
     Pauling_electronegativity_A2 = ele_A2.X
+    Pauling_electronegativity_A = (Pauling_electronegativity_A1 + Pauling_electronegativity_A2)/2
     Pauling_electronegativity_B = ele_B.X
     Pauling_electronegativity_O = ele_O.X
-    Pauling_electronegativity_A = (Pauling_electronegativity_A1 + Pauling_electronegativity_A2)/2
-    
+    # Difference in the electronegativity for A-O and B-O
     Diff_A_O = Pauling_electronegativity_A - Pauling_electronegativity_O
     Diff_B_O = Pauling_electronegativity_B - Pauling_electronegativity_O
 
@@ -73,9 +67,11 @@ def geometric_descriptor(element_dict):
     Returns:                                                                                                 
        array: geometric based descriptor, including atomic_radius,  mendeleev number', common_oxidation_states, Pauling electronegativity, thermal_conductivity, average_ionic_radius, atomic_orbitals.               
     """
+    # encode the orbital types
     category = {'s': 1, 'p': 2, 'd': 3, 'f': 4};
+    # total number of atoms in a perovskite structure
     N = sum(element_dict.values())
-    
+    # obtain array of atomic properties for each element type
     atomic_number_list = []
     atomic_mass_list = []
     atomic_radius_list = []
@@ -91,11 +87,9 @@ def geometric_descriptor(element_dict):
     average_ionic_radius_list = []
     molar_volume_list = []
     atomic_orbitals_list = []
-
     for item in element_dict:
+        # extract atomic property from pymatgen
         ele = mg.Element(item)
-
-        # atomic property
         atomic_number = ele.Z
         atomic_mass = float(str(ele.atomic_mass)[:-4])
         atomic_radius = float(str(ele.atomic_radius)[:-4])
@@ -110,14 +104,13 @@ def geometric_descriptor(element_dict):
         melting_point = float(str(ele.melting_point)[: -2])
         average_ionic_radius = float(str(ele.average_ionic_radius)[:-4])
         molar_volume = float(str(ele.molar_volume)[: -5])
-
         if '6s' in ele.atomic_orbitals.keys():
             atomic_orbitals = ele.atomic_orbitals['6s']
         elif '4s' in ele.atomic_orbitals.keys():
             atomic_orbitals = ele.atomic_orbitals['4s']
         else:
             atomic_orbitals = ele.atomic_orbitals['2s']
-
+        # calculate the array of atomic properties for all atoms 
         atomic_number_list += [atomic_number]*element_dict[item]
         atomic_mass_list += [atomic_mass]*element_dict[item]
         atomic_radius_list += [atomic_radius]*element_dict[item]
@@ -135,7 +128,6 @@ def geometric_descriptor(element_dict):
         atomic_orbitals_list += [atomic_orbitals]*element_dict[item]
 
     return [generalized_mean(np.array(atomic_number_list), 1, N)] + [generalized_mean(np.array(atomic_radius_list), 1, N)] + [generalized_mean(np.array(mendeleev_no_list), 1, N)] + [generalized_mean(np.array(common_oxidation_states_list), 1, N)] + [generalized_mean(np.array(Pauling_electronegativity_list), 1, N)] + [generalized_mean(np.array(thermal_conductivity_list), 1, N)] + [generalized_mean(np.array(average_ionic_radius_list), 1, N)] + [generalized_mean(np.array(atomic_orbitals_list), 1, N)]
-
 
 if __name__ == "__main__":
     print('LaBaCo2O6', elemental_descriptor('La', 'Ba', 'Co') + geometric_descriptor({'La': 4, 'Ba': 4, 'Co': 8, 'O': 24}))
