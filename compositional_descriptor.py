@@ -46,7 +46,8 @@ def elemental_descriptor(A1_ion, A2_ion, B_ion):
 def generalized_mean(x, p, N):
     """Generalized mean function capture the mean value of atomic properties by considering the ratio of each element in the structure.                                                                                     
     Args:                                                                                                  
-       x (array): array of atomic properties for each atom in the structure.                                           p (int): power parameter, e.g., harmonic mean (-1), geometric mean(0), arithmetic mean(1), quadratic mean(2). 
+       x (array): array of atomic properties for each atom in the structure.                                           
+       p (int): power parameter, e.g., harmonic mean (-1), geometric mean(0), arithmetic mean(1), quadratic mean(2). 
        N (int): total number of atoms in the structure.
     Returns:                                                                                                 
        float: generalized mean value.                                                                        
