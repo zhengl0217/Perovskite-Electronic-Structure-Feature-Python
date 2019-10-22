@@ -41,7 +41,6 @@ def elemental_descriptor(A1_ion, A2_ion, B_ion):
     # Difference in the electronegativity for A-O and B-O
     Diff_A_O = Pauling_electronegativity_A - Pauling_electronegativity_O
     Diff_B_O = Pauling_electronegativity_B - Pauling_electronegativity_O
-
     return [common_oxidation_states_A, common_oxidation_states_B, Pauling_electronegativity_A, Pauling_electronegativity_B, TF, OF, ionic_ration_AO, ionic_ration_BO, Diff_A_O, Diff_B_O]
 
 def generalized_mean(x, p, N):
@@ -126,7 +125,6 @@ def geometric_descriptor(element_dict):
         average_ionic_radius_list += [average_ionic_radius]*element_dict[item]
         molar_volume_list += [molar_volume]*element_dict[item]
         atomic_orbitals_list += [atomic_orbitals]*element_dict[item]
-
     return [generalized_mean(np.array(atomic_number_list), 1, N)] + [generalized_mean(np.array(atomic_radius_list), 1, N)] + [generalized_mean(np.array(mendeleev_no_list), 1, N)] + [generalized_mean(np.array(common_oxidation_states_list), 1, N)] + [generalized_mean(np.array(Pauling_electronegativity_list), 1, N)] + [generalized_mean(np.array(thermal_conductivity_list), 1, N)] + [generalized_mean(np.array(average_ionic_radius_list), 1, N)] + [generalized_mean(np.array(atomic_orbitals_list), 1, N)]
 
 if __name__ == "__main__":
